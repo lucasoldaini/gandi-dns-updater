@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# sublime text files
+*.sublime-project
+*.sublime-workspace
+sftp-config.json
+
