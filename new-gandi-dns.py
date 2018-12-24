@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import print_function, unicode_literals
+
 # built-in packages
 from argparse import ArgumentParser
 import sys
@@ -81,7 +83,7 @@ def update_ip(new_ip, opts):
 
     if a_config is not None:
         rrset_values = set(a_config['rrset_values'])
-        if new_ip in rrset_values:
+        if new_ip in rrset_values and not(opts.force):
             print(
                 '[info] A record for "{type}" matches curent ip "{ip}"; '
                 'no changes needed.'
@@ -153,9 +155,10 @@ def main():
     )
     ap.add_argument('-t', '--ttl', default=300, type=int)
     ap.add_argument('-i', '--ext-ip-server',
-                    default='http://ipv4.myexternalip.com/raw')
+                    default='https://api.ipify.org')
     ap.add_argument('-l', '--loc-ip-server', default='google.com')
     ap.add_argument('-I', '--interface', default=None)
+    ap.add_argument('-f', '--force', action='store_true')
     ap.add_argument('-p', '--loc-ip-port', default=80, type=int)
     ap.add_argument('-L', '--list-interfaces', action='store_true')
     opts = ap.parse_args()
@@ -187,3 +190,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
